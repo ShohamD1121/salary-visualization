@@ -1,0 +1,15 @@
+.chart-container {
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .chart-wrapper {
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .chart-wrapper {
+      width: 500px; /* Adjust the width as per your needs */
+    }
+  }
+}
