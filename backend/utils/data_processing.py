@@ -33,10 +33,9 @@ def calculate_average_salary(data):
     average_salaries = []
     for job_title, size_counts in salary_counts.items():
         salary_entry = {"job_title": job_title}
-
         for company_size, count in size_counts.items():
             average_salary = salary_sums[job_title][company_size] / count
-            salary_entry[f"salary_{company_size}"] = average_salary
+            salary_entry[f"salary_{company_size}"] = int(average_salary)
 
         average_salaries.append(salary_entry)
 

@@ -36,7 +36,7 @@ const AverageSalariesChart: React.FC = () => {
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={averageSalaries}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="job_title" />
+          <XAxis dataKey="job_title" tick={{ display: "none" }} />
           <YAxis />
           <Tooltip />
           <Legend />
