@@ -1,5 +1,12 @@
 .app_container {
+  h1 {
+    color: #8884d8;
+  }
+}
+
+.charts_container {
   color: #8884d8;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 1rem;
 }

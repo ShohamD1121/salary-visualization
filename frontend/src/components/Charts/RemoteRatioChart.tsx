@@ -20,7 +20,6 @@ const RemoteRatioChart: React.FC = () => {
       try {
         const { data } = await axios.get("http://127.0.0.1:8000/remote-ratios");
         setRemoteRatios(data);
-        console.log(data);
       } catch (error) {
         console.log("Error fetching remote ratios:", error);
       }
@@ -32,7 +31,7 @@ const RemoteRatioChart: React.FC = () => {
   return (
     <div className="chart-container">
       <h1>Remote Ratio</h1>
-      <ResponsiveContainer width="80%" height={300}>
+      <ResponsiveContainer width="95%" height={300}>
         <BarChart data={remoteRatios}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="bin" />
