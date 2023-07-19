@@ -12,14 +12,14 @@ import {
 } from "recharts";
 import "./Charts.scss";
 
-const AverageSalariesChart: React.FC = () => {
+const AverageSalariesByCompanySize: React.FC = () => {
   const [averageSalaries, setAverageSalaries] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const { data } = await axios.get(
-          "http://127.0.0.1:8000/salaries-average"
+          "http://127.0.0.1:8000/average-salary-by-company-size"
         );
         setAverageSalaries(data);
       } catch (error) {
@@ -32,21 +32,21 @@ const AverageSalariesChart: React.FC = () => {
 
   return (
     <div className="chart-container">
-      <h1>Average Salary Chart</h1>
-      <ResponsiveContainer width="100%" height={300}>
+      <h1>Average Salaries By Company Size</h1>
+      <ResponsiveContainer width="95%" height={300}>
         <BarChart data={averageSalaries}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="job_title" tick={{ display: "none" }} />
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="salary_L" stackId="salary" fill="#8884d8" />
-          <Bar dataKey="salary_M" stackId="salary" fill="#82ca9d" />
-          <Bar dataKey="salary_S" stackId="salary" fill="#ffc658" />
+          <Bar dataKey="average_salary_L" stackId="salary" fill="#8884d8" />
+          <Bar dataKey="average_salary_M" stackId="salary" fill="#82ca9d" />
+          <Bar dataKey="average_salary_S" stackId="salary" fill="#ffc658" />
         </BarChart>
       </ResponsiveContainer>
     </div>
   );
 };
 
-export default AverageSalariesChart;
+export default AverageSalariesByCompanySize;
