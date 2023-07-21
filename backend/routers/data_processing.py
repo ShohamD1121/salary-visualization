@@ -1,8 +1,11 @@
 from fastapi import APIRouter
 from utils.data_processing import create_bins, calculate_average_salary_by_company_size, calculate_average_salary_by_experience
-from db import salaries
+from db import salaries, es
 
 router = APIRouter()
+
+# es.indices.create(index="data-db")
+# es.index(index="data-db", body={"field1": "value1", "field2": "value2"})
 
 
 @router.get("/remote-ratios")
@@ -35,3 +38,12 @@ def get_remote_ratios():
 def get_average_salary_by_experience():
     data = salaries.find()
     return calculate_average_salary_by_experience(data)
+
+
+@router.get("/search")
+def search_documents():
+    result = es.search(
+        index="movies",
+        body={"query": {"match_all": {}}}
+    )
+    return result
