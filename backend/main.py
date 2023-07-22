@@ -7,9 +7,7 @@ from fastapi.openapi.docs import get_swagger_ui_html
 # for app starting ---> python -m uvicorn main:app --reload
 
 app = FastAPI()
-
 setup_middlewares(app)
-
 app.include_router(data_processing_router)
 
 
