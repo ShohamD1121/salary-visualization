@@ -12,9 +12,9 @@ def calculate_average_salary_by_company_size(data):
     salary_sums = {}
 
     for doc in data:
-        job_title = doc["job_title"]
-        company_size = doc["company_size"]
-        salary = doc["salary_in_usd"]
+        job_title = doc["_source"]["job_title"]
+        company_size = doc["_source"]["company_size"]
+        salary = doc["_source"]["salary_in_usd"]
 
         if job_title not in salary_counts:
             salary_counts[job_title] = {}
@@ -48,9 +48,9 @@ def calculate_average_salary_by_experience(data):
     salary_sums = {}
 
     for doc in data:
-        job_title = doc["job_title"]
-        experience_level = doc["experience_level"]
-        salary = doc["salary_in_usd"]
+        job_title = doc["_source"]["job_title"]
+        experience_level = doc["_source"]["experience_level"]
+        salary = doc["_source"]["salary_in_usd"]
 
         if job_title not in salary_counts:
             salary_counts[job_title] = {}
