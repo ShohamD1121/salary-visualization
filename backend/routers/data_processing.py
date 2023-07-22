@@ -65,7 +65,7 @@ def search_documents():
     # Define the fields you want to include in the search results
     source_fields = ["job_title", "experience_level", "salary_in_usd"]
 
-    # Test Here!
+    # Test Here! check who's faster
     slow_search_query = {
         "_source": source_fields,
         "query": {
@@ -74,7 +74,7 @@ def search_documents():
         "size": 3755
     }
 
-    # Test Here!
+    # Test Here! check who's faster
     fast_search_query = {
         "query": {
             "match_all": {}
