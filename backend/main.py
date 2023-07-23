@@ -1,7 +1,7 @@
 from fastapi.responses import HTMLResponse
 from fastapi import FastAPI
 from middleware.middleware import setup_middlewares
-from routers.data_processing import router as data_processing_router
+from controllers.data_processing import router as data_processing_router
 from fastapi.openapi.docs import get_swagger_ui_html
 
 # for app starting ---> python -m uvicorn main:app --reload
