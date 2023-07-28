@@ -1,6 +1,6 @@
 # Salary Visualization
 
-This is a data visualization app for salary data in the Data Science field. It provides interactive charts and visualizations based on a large CSV file containing salary data. The app is built with React and Recharts for the frontend, and Python FastAPI with ElasticSearch for the backend.
+This is a data visualization app for salary data in the Data Science field. It provides interactive charts and visualizations based on a large CSV file containing salary data. The app is built with NextJS and Recharts for the frontend, and Python FastAPI with ElasticSearch for the backend.
 
 ## Features
 
@@ -10,7 +10,7 @@ This is a data visualization app for salary data in the Data Science field. It p
 
 ## Technologies Used
 
-- Frontend: React, Recharts, Sass.
+- Frontend: NextJS, Recharts, Sass.
 - Backend: Python, FastAPI, ElasticSearch.
 
 ## Running the Application
