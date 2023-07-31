@@ -8,7 +8,7 @@ export const validationRegistrationSchema = yup.object().shape({
     .string()
     .min(3, "Too Short !")
     .max(30, "Too Long !")
-    .required("Required !"),
+    .required("Name is Required"),
 
   email: yup
     .string()
