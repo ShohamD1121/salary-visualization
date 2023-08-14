@@ -2,15 +2,6 @@ from collections import defaultdict
 
 
 class SalaryService:
-
-    def create_bins(self, remote_ratios):
-        bins = {}
-        for value in remote_ratios:
-            bin = str(value)
-            bins[bin] = bins.get(bin, 0) + 1
-        sorted_bins = sorted(bins.items(), key=lambda x: int(x[0]))
-        return [{"bin": bin, "amount": amount} for bin, amount in sorted_bins]
-
     def calculate_average_salary_by_company_size(self, data):
         salary_counts = defaultdict(lambda: defaultdict(int))
         salary_sums = defaultdict(lambda: defaultdict(int))

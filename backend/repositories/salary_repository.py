@@ -15,16 +15,37 @@ class SalaryRepository:
     def __init__(self, es_client: Elasticsearch):
         self.es_client = es_client
 
-    def get_remote_ratios(self, index_name: str, size: int):
-        search_query = {
-            "_source": ["remote_ratio"],
-            "size": size
+    def get_remote_ratios(self, index_name: str):
+        query = {
+            "size": 0,
+            "aggs": {
+                "equal_remote_ratios": {
+                    "terms": {
+                        "field": "remote_ratio",
+                        "size": 10,
+                        "include": [0, 50, 100],
+                        "order": {
+                            "_key": "asc"
+                        },
+                    },
+                    "aggs": {
+                        "doc_count": {
+                            "value_count": {
+                                "field": "remote_ratio"
+                            }
+                        }
+                    }
+                }
+            }
         }
-
-        result = self.es_client.search(index=index_name, body=search_query)
-        remote_ratios = [doc["_source"]["remote_ratio"]
-                         for doc in result["hits"]["hits"]]
-
+        result = self.es_client.search(index=index_name, body=query)
+        remote_ratios = [
+            {
+                "remote_ratio": bucket["key"],
+                "count": bucket["doc_count"]["value"]
+            }
+            for bucket in result["aggregations"]["equal_remote_ratios"]["buckets"]
+        ]
         return remote_ratios
 
     def get_average_salary_by_company_size(self, index_name: str, size: int):

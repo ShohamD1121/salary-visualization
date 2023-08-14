@@ -6,21 +6,21 @@ import "./App.scss";
 import { useEffect } from "react";
 
 export default function Page() {
-  const { getAccessTokenSilently } = useAuth0();
+  // const { getAccessTokenSilently } = useAuth0();
 
-  const fetchData = async () => {
-    try {
-      const accessToken = await getAccessTokenSilently();
-      // Use the accessToken for API requests or pass it to the backend.
-      console.log("Access Token:", accessToken);
-    } catch (error) {
-      console.error("Error getting access token:", error);
-    }
-  };
+  // const fetchData = async () => {
+  //   try {
+  //     const accessToken = await getAccessTokenSilently();
+  //     // Use the accessToken for API requests or pass it to the backend.
+  //     console.log("Access Token:", accessToken);
+  //   } catch (error) {
+  //     console.error("Error getting access token:", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
   return (
     <div className="app_container">
