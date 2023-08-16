@@ -1,13 +1,10 @@
-import { Auth0Provider } from "@auth0/auth0-react";
 import type { AppProps } from "next/app";
+import { UserProvider } from "@auth0/nextjs-auth0/client";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <Auth0Provider
-      domain="dev-iggd0fc1ms6wkjfs.us.auth0.com"
-      clientId="rDK0dPGtpZhJnHJdDYs6aZyF0eAQgZ5o"
-    >
+    <UserProvider>
       <Component {...pageProps} />
-    </Auth0Provider>
+    </UserProvider>
   );
 }

@@ -12,11 +12,10 @@ salary_service = SalaryService()
 
 
 @router.get("/remote-ratios")
-def get_remote_ratios(size: int = 3755):
+def get_remote_ratios():
     remote_ratios = salary_repository.get_remote_ratios(
-        index_name=index_name, size=size)
-    remote_ratios_json = salary_service.create_bins(remote_ratios)
-    return remote_ratios_json
+        index_name=index_name)
+    return remote_ratios
 
 
 @router.get("/average-salary-by-company-size")
