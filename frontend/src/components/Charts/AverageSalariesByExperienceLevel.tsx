@@ -32,7 +32,7 @@ const AverageSalariesByExperienceLevel: React.FC = () => {
 
   return (
     <div className="chart-container">
-      <h1>Average Salaries By Company Size</h1>
+      <h1>Average Salaries By Experience Level</h1>
       <ResponsiveContainer width="95%" height={300}>
         <BarChart data={averageSalaries}>
           <CartesianGrid strokeDasharray="3 3" />
