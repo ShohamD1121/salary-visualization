@@ -21,6 +21,8 @@ const AverageSalariesByCompanySize: React.FC = () => {
         const { data } = await axios.get(
           "http://127.0.0.1:8000/average-salary-by-company-size"
         );
+        console.log(data);
+
         setAverageSalaries(data);
       } catch (error) {
         console.log("Error fetching data:", error);

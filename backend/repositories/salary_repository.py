@@ -1,44 +1,15 @@
 from elasticsearch import Elasticsearch
-from dataclasses import dataclass
-from typing import Optional
-
-
-@dataclass
-class SalaryData:
-    job_title: str
-    salary: int
-    company_size: Optional[str] = None
-    experience_level: Optional[str] = None
+import utils.queries as queries
 
 
 class SalaryRepository:
     def __init__(self, es_client: Elasticsearch):
         self.es_client = es_client
+        self.index_name = "salaries_v2"
 
-    def get_remote_ratios(self, index_name: str):
-        query = {
-            "size": 0,
-            "aggs": {
-                "equal_remote_ratios": {
-                    "terms": {
-                        "field": "remote_ratio",
-                        "size": 10,
-                        "include": [0, 50, 100],
-                        "order": {
-                            "_key": "asc"
-                        },
-                    },
-                    "aggs": {
-                        "doc_count": {
-                            "value_count": {
-                                "field": "remote_ratio"
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        result = self.es_client.search(index=index_name, body=query)
+    def get_remote_ratios(self):
+        result = self.es_client.search(
+            index=self.index_name, body=queries.get_remote_ratios_query)
         remote_ratios = [
             {
                 "remote_ratio": bucket["key"],
@@ -48,38 +19,31 @@ class SalaryRepository:
         ]
         return remote_ratios
 
-    def get_average_salary_by_company_size(self, index_name: str, size: int):
-        search_query = {
-            "query": {
-                "match_all": {}
-            },
-            "size": size
-        }
+    def get_average_salary_by_company_size(self):
 
-        result = self.es_client.search(index=index_name, body=search_query)
-        all_documents = result["hits"]["hits"]
-        salary_data_list = [SalaryData(
-            job_title=doc["_source"]["job_title"],
-            company_size=doc["_source"]["company_size"],
-            salary=doc["_source"]["salary_in_usd"]
-        ) for doc in all_documents]
+        result = self.es_client.search(
+            index=self.index_name, body=queries.get_average_salary_by_company_size_query)
+        formatted_result = []
 
-        return salary_data_list
+        for job_bucket in result["aggregations"]["job_titles"]["buckets"]:
+            formatted_entry = {"job_title": job_bucket["key"]}
+            for size_bucket in job_bucket["company_sizes"]["buckets"]:
+                formatted_entry[f"average_salary_{size_bucket['key']}"] = int(
+                    size_bucket["average_salary"]["value"])
+            formatted_result.append(formatted_entry)
 
-    def get_average_salary_by_experience(self, index_name: str, size: int):
-        search_query = {
-            "query": {
-                "match_all": {}
-            },
-            "size": size
-        }
+        return formatted_result
 
-        result = self.es_client.search(index=index_name, body=search_query)
-        all_documents = result["hits"]["hits"]
-        salary_data_list = [SalaryData(
-            job_title=doc["_source"]["job_title"],
-            experience_level=doc["_source"]["experience_level"],
-            salary=doc["_source"]["salary_in_usd"]
-        ) for doc in all_documents]
+    def get_average_salary_by_experience(self):
+        result = self.es_client.search(
+            index=self.index_name, body=queries.get_average_salary_by_experience_query)
+        formatted_result = []
 
-        return salary_data_list
+        for job_bucket in result["aggregations"]["job_titles"]["buckets"]:
+            formatted_entry = {"job_title": job_bucket["key"]}
+            for size_bucket in job_bucket["experience_levels"]["buckets"]:
+                formatted_entry[f"average_salary_{size_bucket['key']}"] = int(
+                    size_bucket["average_salary"]["value"])
+            formatted_result.append(formatted_entry)
+
+        return formatted_result
